@@ -210,3 +210,254 @@ const calculateTip = (montant, note) => {
 // accum("cwAt")  "C-Ww-Aaa-Tttt"
 // Remarquez les majuscules au début de chacun des blocs, le nombre de lettres croissant et la séparation
 // avec des tirets.
+const accum = (mot) => {
+    const newMot = [...mot].reduce((a,v,i)=>a.concat([...v.repeat(i+1)].map((v,i)=>i==0?v.toUpperCase():v).join('')),[])
+    console.log(newMot.join('-'))
+}
+// accum("RqaEzty");
+
+
+
+// La tribu Arara compte de la façon suivante :
+// 1 = anane
+// 2 = adak
+// 3 = adak anane
+// 4 = adak adak
+// 5 = adak adak anane
+// 6 = adak adak adak
+// 7 = adak adak adak anane
+// 8 = adak adak adak adak
+// Ecrire une fonction qui transforme un nombre en langage Arara.
+// countArara(1)  "anane"
+// countArara(3)  "adak anane"
+// countArara(8)  "adak adak adak adak"
+const countArara = (nombre) => {
+    const count = []
+    for(let i=1 ; i <= (nombre/2); i++){
+        count.push("adak")
+    }
+    if(nombre%2!==0){
+        count.push("anane")
+    }
+    console.log(count.join(' '))
+}
+// countArara(9)
+
+
+
+// Les distributeurs automatiques permettent de taper des codes PIN, ces
+// derniers ne peuvent contenir que 4 chiffres ou exactement 6 chiffres. Si
+// la fonction est transmise est un code PIN valide, renvoyez true, sinon
+// renvoyez false.
+// ValidatePIN ("1234")  true
+// ValidatePIN ("12345")  false
+// ValidatePIN ("a234")  false
+const ValidatePIN = (pin) => {
+    const isValide = [...pin].every((v) => /[0-9]/.test(v)) && ([...pin].length === 4 || [...pin].length === 6)
+    console.log(isValide)
+}
+// ValidatePIN("1234")
+
+
+
+// Ajoutez une méthode toJadenCase à String.prototype qui permettra de mettre en majuscules chaque
+// première lettre des mots d’une phrase donnée.
+// "Ceci est une phrase".toJadenCase()  "Ceci Est Une Phrase"
+String.prototype.toJadenCase = function() {
+    const NewString = this.toString().split(' ').map(v=>[...v].map((a,i) => i==0 ? a.toUpperCase() : a).join('')).join(' ')
+    return NewString
+}
+// const blabla = "Ceci est une phrase".toJadenCase();
+// console.log(blabla)
+
+
+
+// Renvoyez le nombre de voyelles (a, e, i, o, et u) dans une chaîne donnée.
+// getCount("Ceci est une phrase")  7
+const getCount = (phrase) => {
+    const nombre = [...phrase].reduce((a,v)=> /[aeiou]/.test(v) ? a+1 : a, 0)
+    console.log(nombre)
+}
+// getCount("Ceci est une phrase");
+
+
+
+// Des développeurs se sont inscrits pour assister à la prochaine réunion de codage que vous organisez.
+// Votre tâche consiste à renvoyer un objet qui comprend le nombre d'options alimentaires sélectionnées par
+// les développeurs sur le formulaire d'inscription. Par exemple, compte tenu du tableau de saisie suivant :
+// Var list1 = [
+// {FirstName: 'Noah', lastName: 'M.', pays: 'Suisse', continent: 'Europe', age: 19, langue: 'C'
+// Repas: 'végétarien'},
+// {FirstName: 'Anna', lastName: 'R.', pays: 'Liechtenstein', continent: 'Europe', age: 52, langue:
+// 'JavaScript',
+// Repas: 'standard'},
+// {FirstName: 'Ramona', lastName: 'R.', pays: 'Paraguay', continent: 'Amériques', age: 29, langue: 'Ruby',
+// Repas: 'vegan'},
+// {FirstName: 'George', lastName: 'B.', pays: 'Angleterre', continent: 'Europe', age: 81, langue: 'C'
+// Repas: 'végétarien'},
+// ];
+// Votre fonction doit renvoyer l'objet suivant (l'ordre des propriétés n'a pas d'importance):
+// {Végétarien: 2, standard: 1, vegan: 1}
+
+var list = [
+    {FirstName: 'Noah', lastName: 'M.', pays: 'Suisse', continent: 'Europe', age: 19, langue: 'C', Repas: 'végétarien'},
+    {FirstName: 'Anna', lastName: 'R.', pays: 'Liechtenstein', continent: 'Europe', age: 52, langue: 'JavaScript', Repas: 'standard'},
+    {FirstName: 'Ramona', lastName: 'R.', pays: 'Paraguay', continent: 'Amériques', age: 29, langue: 'Ruby', Repas: 'vegan'},
+    {FirstName: 'George', lastName: 'B.', pays: 'Angleterre', continent: 'Europe', age: 81, langue: 'C', Repas: 'végétarien'},
+];
+const alimentaire = (liste) => {
+    const AlimList = liste.reduce((a,v)=>{
+        const repas = v["Repas"]
+        a[repas] = a[repas] ? a[repas] + 1 : 1
+        return a
+    },{})
+    console.log(AlimList)
+}
+// alimentaire(list); // afffiche { 'végétarien': 2, standard: 1, vegan: 1 } NB: 'végétarien' parce qu'il a de caractère spéciaux
+
+
+
+// Créez une fonction qui, à partir d’un nombre donné sous la forme d’une chaîne de caractères, renvoit :
+// counterEffect("1250")  [[0,1],[0,1,2],[0,1,2,3,4,5],[0]]
+// counterEffect("0050")  [[0],[0],[0,1,2,3,4,5],[0]]
+// counterEffect("0000")  [[0],[0],[0],[0]]
+const counterEffect = (nombre) => {
+    const newTable = [...nombre].reduce((a,v)=>{
+        const intTab = []
+        for(let i=0; i<=v; i++){
+            intTab.push(i)
+        }
+        a.push(intTab)
+        return a
+    }, [])
+    console.log(newTable)
+}
+// counterEffect("1250")
+
+
+
+// A partir d’une liste de nombres, trouvez celui avec le plus de chiffres.
+// Si deux nombres dans le tableau ont le même nombre de chiffres, renvoyez le premier de la liste.
+// findLongest([1, 10, 100])  100
+// findLongest([9000, 8, 800])  9000
+// findLongest([8, 900, 500])  900
+const findLongest1 = (table) => {
+    const nombre = table.reduce((a,v)=>{
+        if(v.toString().length > a){
+            a = v.toString().length;
+        }
+        return a
+    },0)
+    const fistChiffre = table.filter((n)=>{
+        if(n.toString().length === nombre){
+            return n
+        }
+    })
+    console.log(fistChiffre[0]);
+}
+const findLongest2 = (table) => {
+    const firstLargest = table.reduce((a,c)=> c.toString().length > a.toString().length ? c : a, table[0])
+    console.log(firstLargest)
+}
+// findLongest2([8, 900, 500, 100]);
+
+
+
+// On vous donne une chaîne de mots, renvoyez la longueur du ou des mots les plus courts.
+// La chaîne ne sera jamais vide et vous ne devez pas tenir compte des types de données (nombres, lettres
+// etc.).
+// findShort("bitcoin take over the world maybe who knows perhaps")  3
+const findShort = (phrase) => {
+    const shortMot = phrase.split(" ").reduce((a,c) => c.length < a ? c.length : a, phrase.split(" ")[0].length)
+    console.log(shortMot);
+}
+// findShort("bitcoin take over the world maybe who knows perhaps");
+
+
+
+// On vous donne une chaîne de mots, renvoyez le mot le plus long. S’il y en a plusieurs, prendre le dernier.
+// longestWord('a b c d e fgh')  "fgh"
+// longestWord('one two three')  "three"
+// longestWord('red blue grey')  "grey"
+const longestWord = (phrase) => {
+    const longest = phrase.split(' ').reduce((a,c)=> c.length >= a.length ? c : a, phrase.split(' ')[0])
+    console.log(longest)
+}
+// longestWord('red blue grey')
+
+
+
+// Un tableau de taille N x M représente les pixels d'une image. Chaque cellule de ce tableau contient un
+// tableau de taille 3 avec les informations de couleur du pixel : [R, G, B]
+// Convertissez l'image couleur en une image moyenne en niveaux de gris.
+// Le tableau [R, G, B] contient des nombres entiers entre 0 et 255 pour chaque couleur.
+// Pour transformer un pixel de couleur en un pixel en niveaux de gris, utilisez la valeur moyenne des valeurs
+// de ce pixel : P = [R, G, B] => [(R + G + B) / 3, (R + G + B) / 3, (R + G + B) / 3]
+// Remarque : les valeurs pour le pixel doivent être entières, donc trouvez l'entier le plus proche.
+// Exemple
+// Voici un exemple d'image 2x2:
+// [
+//  [[123, 231, 12], [56, 43, 124]],
+//  [[78, 152, 76], [64, 132, 200]]
+// ]
+// Voici l'image attendue après transformation :
+// [
+//  [[122, 122, 122], [74, 74, 74]],
+//  [[102, 102, 102], [132, 132, 132]]
+// ]
+const RGB = (couleur) => {
+    console.log(couleur[0][0])
+}
+const couleur = [
+ [[123, 231, 12], [56, 43, 124]],
+ [[78, 152, 76], [64, 132, 200]]
+]
+// RGB(couleur)
+
+
+
+// On vous demande de mettre au carré chaque chiffre d'un nombre.
+// Par exemple, si nous exécutons la fonction avec 9119, nous obtiendrons 811181.
+const AuCarré = (chiffre) => {
+    const carré = [...chiffre.toString()].map((a)=> a*a).join('')
+    console.log(carré)
+}
+// AuCarré(9119)
+
+
+
+// Habituellement, lorsque vous achetez quelque chose, on vous demande votre numéro de carte de crédit,
+// votre numéro de téléphone ou votre réponse à une question secrète. Cependant, comme quelqu'un pourrait
+// regarder par-dessus votre épaule, vous ne voulez pas que cela s'affiche sur votre écran. Vo tre tâche
+// consiste à écrire une fonction maskify, qui modifie tous les caractères en '#' sauf les quatre derniers.
+// maskify('4556364607935616')  '############5616'
+// maskify('1')  '1'
+// maskify('11111')  '#1111'
+const maskify = (chiffre) => {
+    const NewChiffre = chiffre.length < 5 ? chiffre : [...chiffre].map((a,i,t) => i < (t.length-4) ? "#" : a).join('')
+    console.log(NewChiffre);
+}
+// maskify("4556364607935616");
+
+
+
+// Vous recevrez une chaîne de caractères comme entrée. Il aura le mois (2 chiffres) et l'année (2 ou 4
+// chiffres). Ceux-ci sont séparés par un caractère ("-", "/" ou peut-être plusieurs espaces). Par exemple :
+// 02/21
+// 02/21
+// 02 / 2021
+// 02-2021
+// Votre tâche consiste à écrire une fonction qui renvoie true ou false suivant que la carte est encore valide
+// ou non.
+// Remarque : si la carte le mois courant, renvoyez true.
+const isValide = (date) => {
+  const currentDate = new Date();
+  const dateActuel = currentDate.toLocaleDateString();
+  const JourActuel = currentDate.getDate();
+  const MoisActuel = currentDate.getMonth() + 1; // Les mois sont indexés à partir de 0
+  const AnnéeActuel = currentDate.getFullYear();
+
+  const valide = date.split(/\s*[/|-]\s*/).filter(Boolean).reduce((a,v,i)=> v, false)
+  console.log(valide);
+}
+// isValide("02 / 2021");
